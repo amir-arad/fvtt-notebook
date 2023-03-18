@@ -4,6 +4,7 @@ const ammoData = [
   { name: "crossbow", ammoType: "bolt" },
   { name: "sling", ammoType: "stone" },
 ];
+
 const missileAttack = async function () {
   // Get Selected
   if (!OSRH.util.singleSelected()) {
@@ -111,7 +112,8 @@ const missileAttack = async function () {
                   items: [weapon.clone()],
                 });
                 const pileToken = await fromUuid(pileData.tokenUuid);
-                pileToken.sort = -10;
+                await pileToken.setFlag("token-z", "zIndex", -10);
+                canvas.tokens.objects.sortDirty = canvas.primary.sortDirty = true;
                 weapon.delete();
               } else {
                 const ammo = selectedActor.items.find((i) => i.id == aId);
