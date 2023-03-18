@@ -4,6 +4,14 @@ const meleAttack = async function () {
   if (!OSRH.util.singleSelected()) {
     return;
   }
+  if (game.user.targets.size  < 1) {
+    ui.notifications.error("No target.");
+    return;
+  }
+  if (game.user.targets.size > 1) {
+    ui.notifications.error("Too many targets");
+    return;
+  }
   const attackingToken = canvas.tokens.controlled[0];
   const selectedActor = attackingToken.actor;
   // Select Weapon
